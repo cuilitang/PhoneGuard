@@ -27,6 +27,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -83,6 +85,7 @@ public class SplashActivity extends Activity {
 		};
 	};
 	Message msg = new Message();
+	private SharedPreferences sp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +95,20 @@ public class SplashActivity extends Activity {
 		tv_splash_version = (TextView) findViewById(R.id.tv_splash_version);
 		tv_splash_version.setText("版本："+getVersionName());
 		
-		checkUpdate();
+		sp = getSharedPreferences("config", MODE_PRIVATE);
+		boolean update = sp.getBoolean("update", false);
+		if(update){
+			checkUpdate();
+		}else {
+			handler.postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					enterHome();
+				}
+			}, 2000);
+		}
+		
 		
 		//渐变动画 （暗--->明）
 		AlphaAnimation animation = new AlphaAnimation(0.2f, 1.0f);
