@@ -14,6 +14,18 @@
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
+    <cui.litang.phoneguard.ui.FocusedTextView 
+        android:id="@+id/tv_paomadeng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="欢迎使用手机伴侣，本软件GitHub地址：https://github.com/cuilitang/PhoneGuard"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textSize="18sp"
+        
+        
+        />
+    
     <GridView 
         android:id="@+id/gv_jiugongge"
         android:layout_width="match_parent"
