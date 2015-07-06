@@ -3,6 +3,7 @@ package cui.litang.phoneguard.ui;
 import cui.litang.phoneguard.R;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
@@ -15,9 +16,13 @@ import android.widget.TextView;
  */
 public class SettingItemView extends RelativeLayout {
 
+	private static final String TAG = "SettingItemView";
 	private CheckBox cb_status;
 	private TextView tv_desc;
 	private TextView tv_title;
+	private String namespace;
+	private String on;
+	private String off;
 
 	public SettingItemView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -27,6 +32,14 @@ public class SettingItemView extends RelativeLayout {
 	public SettingItemView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initView(context);
+		namespace = "http://schemas.android.com/apk/res/cui.litang.phoneguard";
+		String title = attrs.getAttributeValue(namespace, "title");
+		on = attrs.getAttributeValue(namespace, "on");
+		off = attrs.getAttributeValue(namespace, "off");
+		tv_title.setText(title);
+		Log.i(TAG, title);
+		Log.i(TAG, on);
+		Log.i(TAG, off);
 	}
 
 	public SettingItemView(Context context) {
@@ -59,6 +72,11 @@ public class SettingItemView extends RelativeLayout {
 	 */
 	public void setCheck(boolean checked){
 		cb_status.setChecked(checked);
+		if(checked){
+			setDesc(on);
+		}else {
+			setDesc(off);
+		}
 	}
 	
 	/**

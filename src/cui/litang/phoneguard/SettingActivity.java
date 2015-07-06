@@ -25,10 +25,10 @@ public class SettingActivity extends Activity{
 		
 		if(updateStatus){
 			clt_update.setCheck(updateStatus);
-			clt_update.setDesc("自动升级已经启动");
+			//clt_update.setDesc("自动升级已经启动");
 		}else {
 			clt_update.setCheck(updateStatus);
-			clt_update.setDesc("自动升级已经停止");
+			//clt_update.setDesc("自动升级已经停止");
 		}
 		
 		clt_update.setOnClickListener(new OnClickListener() {
@@ -38,12 +38,12 @@ public class SettingActivity extends Activity{
 				Editor editor = sp.edit();
 				if(clt_update.isChecked()){
 					clt_update.setCheck(false);
-					clt_update.setDesc("自动升级已经停止");
+					//clt_update.setDesc("自动升级已经停止");
 					editor.putBoolean("update", false);
 					
 				}else {
 					clt_update.setCheck(true);
-					clt_update.setDesc("自动升级已经启动");
+					//clt_update.setDesc("自动升级已经启动");
 					editor.putBoolean("update", true);
 				}
 				

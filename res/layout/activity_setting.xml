@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cuilitang="http://schemas.android.com/apk/res/cui.litang.phoneguard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -15,6 +16,9 @@
         android:textSize="22sp" />
      
       <cui.litang.phoneguard.ui.SettingItemView
+        cuilitang:title="设置是否自动更新"
+        cuilitang:on="自动升级已启动"
+        cuilitang:off="自动升级已关闭"
         android:id="@+id/clt_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
