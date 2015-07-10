@@ -31,6 +31,8 @@
         </activity>
         <activity android:name="cui.litang.phoneguard.HomeActivity"></activity>
         <activity android:name="cui.litang.phoneguard.SettingActivity"></activity>
+        <activity android:name="cui.litang.phoneguard.LostAndfindActivity"></activity>
+        
     </application>
 
 </manifest>
