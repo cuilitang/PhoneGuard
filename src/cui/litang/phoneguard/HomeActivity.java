@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 public class HomeActivity extends Activity {
 	
+	private static final String TAG = "HomeActivity";
 	private GridView gv_jiugongge;
 	private MyAdapter adapter;
 	private static String [] names = {
@@ -56,7 +58,7 @@ public class HomeActivity extends Activity {
 		gv_jiugongge.setOnItemClickListener(new OnItemClickListener() {
 
 			private Intent intent;
-			private EditText et_setup_pwd;
+			private EditText et_input_pwd;
 			private EditText et_setup_confirm;
 			private Button ok;
 			private Button cancel;
@@ -66,7 +68,12 @@ public class HomeActivity extends Activity {
 					int position, long id) {
 				switch (position) {
 				case 0://手机防盗功能：若未设置进入密码则设置密码，若已设置密码，则进行密码校验
-					showSetupPwdDialog();
+					if(isSetupPwd()){
+						showEnterDialog();
+					}else{
+						showSetupPwdDialog();
+					}
+					
 					break;
 				
 				case 8://进入设置中心
@@ -79,6 +86,78 @@ public class HomeActivity extends Activity {
 				}
 			}
 
+			/** 显示输入密码对话框，若是正确进入手机防盗功能
+			 * 
+			 */
+			private void showEnterDialog() {
+				//TODO 2015-7-10 16:00:17
+				Log.i(TAG, "密码已经设置，请输入密码");
+				AlertDialog.Builder builder = new Builder(HomeActivity.this);
+				View view = View.inflate(HomeActivity.this, R.layout.dialog_check_password, null);
+				
+				et_input_pwd = (EditText) view.findViewById(R.id.et_input_pwd);
+				ok = (Button) view.findViewById(R.id.ok);
+				cancel = (Button) view.findViewById(R.id.cancel);
+				
+				
+				cancel.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+						
+					}
+				});
+				ok.setOnClickListener(new OnClickListener() {
+					
+
+					@Override
+					public void onClick(View v) {
+						//取出密码，进行非空校验，一致性校验
+						//存储到SharedPerformance
+						
+						String pwd = MD5Utils.md5Password(et_input_pwd.getText().toString().trim());
+						 
+
+						if (TextUtils.isEmpty(pwd)) {
+							Toast.makeText(HomeActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+							
+						} else{ //消掉对话框，进入手机防盗功能
+							String password = sp.getString("password", null);
+							if(pwd.equals(password)){
+								dialog.dismiss();
+								Intent intent = new Intent(HomeActivity.this, LostAndfindActivity.class);
+								startActivity(intent);
+								
+							}else {
+								Toast.makeText(HomeActivity.this, "密码输入错误，请重试", Toast.LENGTH_SHORT).show();
+
+							}
+							
+							
+						}
+					}
+				});
+				
+				dialog = builder.create();
+				dialog.setView(view,0,0,0,0);
+				dialog.show();
+				
+				
+				
+			}
+
+			
+		
+
+			/**
+			 * 判断是否设置了进入手机防盗功能的密码
+			 * @return 是否设置密码
+			 */
+			private boolean isSetupPwd() {
+				return !TextUtils.isEmpty(sp.getString("password", null));
+			}
+
 			/**
 			 * 设置密码对话框
 			 */
@@ -86,7 +165,7 @@ public class HomeActivity extends Activity {
 				AlertDialog.Builder builder = new Builder(HomeActivity.this);
 				View view = View.inflate(HomeActivity.this, R.layout.dialog_setup_password, null);
 				
-				et_setup_pwd = (EditText) view.findViewById(R.id.et_setup_pwd);
+				et_input_pwd = (EditText) view.findViewById(R.id.et_setup_pwd);
 				et_setup_confirm = (EditText) view.findViewById(R.id.et_setup_confirm);
 				ok = (Button) view.findViewById(R.id.ok);
 				cancel = (Button) view.findViewById(R.id.cancel);
@@ -108,7 +187,7 @@ public class HomeActivity extends Activity {
 						//取出密码，进行非空校验，一致性校验
 						//存储到SharedPerformance
 						
-						String pwd = et_setup_pwd.getText().toString().trim();
+						String pwd = et_input_pwd.getText().toString().trim();
 						String repwd = et_setup_confirm.getText().toString().trim();
 						if (TextUtils.isEmpty(pwd)||TextUtils.isEmpty(repwd)) {
 							Toast.makeText(HomeActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
