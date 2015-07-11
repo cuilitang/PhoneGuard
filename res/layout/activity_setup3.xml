@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cuilitang="http://schemas.android.com/apk/res/cui.litang.phoneguard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+
+     <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="fill_parent"
+        android:layout_height="55dip"
+        android:background="#8866ff00"
+        android:gravity="center"
+        android:text="3.设置紧急联系人"
+        android:textColor="#000000"
+        android:textSize="22sp" />
+    
+     <TextView
+        style="@style/text_content_style"
+        android:text="SIM卡变更后\n会发短信给紧急联系人" 
+       
+        />
+     
+     <EditText 
+         android:id="@+id/ed_telnum"
+         android:layout_width="match_parent"
+         android:layout_marginLeft="20dip"
+         android:layout_marginRight="20dip"
+         android:layout_height="wrap_content"
+         android:hint="请输入紧急联系人的电话号码"
+         
+         />
+     <Button 
+         android:id="@+id/btn_choose_linkman"
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_marginLeft="20dip"
+         android:layout_marginRight="20dip"
+         android:text="选择联系人"
+         />
+     
+    
+     
+        
+      
+       <!-- 四个点 -->
+    	<LinearLayout android:layout_width="wrap_content" 
+    	    android:layout_height="wrap_content"
+    	    android:layout_gravity="center_horizontal"
+    	    android:orientation="horizontal"
+    	     android:layout_marginTop="20dip"
+    	    >
+			
+    	    
+    	        
+    	     <ImageView 
+    	        android:layout_width="wrap_content"
+    	        android:layout_height="wrap_content"
+    	        android:src="@android:drawable/presence_invisible"
+    	        />	 
+    	        
+    	         <ImageView 
+    	        android:layout_width="wrap_content"
+    	        android:layout_height="wrap_content"
+    	        android:src="@android:drawable/presence_invisible"
+    	        />	 
+    	        <ImageView 
+    	        android:layout_width="wrap_content"
+    	        android:layout_height="wrap_content"
+    	        android:src="@android:drawable/presence_online"
+    	        />	
+    	         <ImageView 
+    	        android:layout_width="wrap_content"
+    	        android:layout_height="wrap_content"
+    	        android:src="@android:drawable/presence_invisible"
+    	        />	 
+    	    
+    	</LinearLayout>
+    	
+    	<RelativeLayout 
+    		android:layout_width="wrap_content"    
+    		android:layout_height="wrap_content"
+    	    >
+    	    
+    	    <ImageView 
+    	        android:layout_width="wrap_content"
+    	        android:layout_height="wrap_content"
+    	        android:layout_centerInParent="true"
+    	        android:src="@drawable/setup3"
+    	        
+    	        />
+    	    
+    	<Button 
+    	    style = "@style/button_next_style"
+    	    /> 
+    	        
+    	<Button
+            style="@style/button_pre_style"
+            />
+    	    
+    	</RelativeLayout>
+</LinearLayout>
+                
