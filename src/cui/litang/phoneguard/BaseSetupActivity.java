@@ -1,6 +1,7 @@
 package cui.litang.phoneguard;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -9,6 +10,8 @@ import android.widget.Toast;
 
 public abstract class BaseSetupActivity extends Activity {
 	private GestureDetector gd;
+	
+	protected SharedPreferences sp;   //声明出来给子类用
 
 	public abstract void showNext();
 	public abstract void showPre();
@@ -37,6 +40,7 @@ public abstract class BaseSetupActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		sp = getSharedPreferences("config", MODE_PRIVATE);  //得到一个实例
 		
 		gd = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){
 			

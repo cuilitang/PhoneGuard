@@ -10,6 +10,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -42,6 +44,10 @@
         <activity
             android:name="cui.litang.phoneguard.Setup4Activity"
             android:label="@string/title_activity_setup4" >
+        </activity>
+        <activity
+            android:name="cui.litang.phoneguard.SelectContactAcctivity"
+            android:label="@string/title_activity_select_contact_acctivity" >
         </activity>
     </application>
 

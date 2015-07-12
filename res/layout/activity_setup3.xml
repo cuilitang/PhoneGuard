@@ -32,6 +32,7 @@
          
          />
      <Button 
+         android:onClick="selectContact"
          android:background="@drawable/button_bg"
          android:id="@+id/btn_choose_linkman"
          android:layout_height="wrap_content"
