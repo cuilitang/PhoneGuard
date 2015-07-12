@@ -17,9 +17,11 @@
         android:textSize="22sp" />
     
      
-     <TextView
-        style="@style/text_content_style"
-        android:text="手机防盗已经开启" 
+     <CheckBox
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+        android:text="点击开启手机防盗保护" 
+        android:textSize="22sp"
         
        
         />

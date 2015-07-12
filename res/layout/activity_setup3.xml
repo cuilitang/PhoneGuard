@@ -32,6 +32,7 @@
          
          />
      <Button 
+         android:background="@drawable/button_bg"
          android:id="@+id/btn_choose_linkman"
          android:layout_height="wrap_content"
          android:layout_width="match_parent"

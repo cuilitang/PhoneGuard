@@ -5,6 +5,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 
+/**
+ * 手机防盗-设置向导-界面-第三步
+ * @author Cuilitang
+ * @Date 2015年7月12日
+ */
 public class Setup3Activity extends BaseSetupActivity {
 
 	@Override
@@ -25,6 +30,7 @@ public class Setup3Activity extends BaseSetupActivity {
 		Intent intent = new Intent(Setup3Activity.this, Setup4Activity.class);
 		startActivity(intent);
 		finish();
+		overridePendingTransition(R.anim.tran_in, R.anim.tran_out);
 		
 	}
 
@@ -33,6 +39,7 @@ public class Setup3Activity extends BaseSetupActivity {
 		Intent intent = new Intent(Setup3Activity.this, Setup2Activity.class);
 		startActivity(intent);
 		finish();
+		overridePendingTransition(R.anim.tran_pre_in, R.anim.tran_pre_out);
 		
 	}
 

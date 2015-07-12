@@ -35,5 +35,11 @@ public class LostAndfindActivity extends Activity {
 		
 		
 	}
+	
+	public void enterSetup(View view) {
+		Intent intent = new Intent(this, Setup1Activity.class);
+		startActivity(intent);
+		finish();
+	}
 
 }

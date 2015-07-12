@@ -128,6 +128,7 @@ public class HomeActivity extends Activity {
 								dialog.dismiss();
 								Intent intent = new Intent(HomeActivity.this, LostAndfindActivity.class);
 								startActivity(intent);
+								dialog.dismiss();
 								
 							}else {
 								Toast.makeText(HomeActivity.this, "密码输入错误，请重试", Toast.LENGTH_SHORT).show();
