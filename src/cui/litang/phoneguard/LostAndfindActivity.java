@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * 判断是否运行过手机防盗设置向导：
@@ -16,7 +18,9 @@ import android.widget.EditText;
  */
 public class LostAndfindActivity extends Activity {
 	
-	private SharedPreferences sp; 
+	private SharedPreferences sp;
+	private ImageView iv_face;
+	private TextView tv_safe_phone_number; 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +28,30 @@ public class LostAndfindActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		sp = getSharedPreferences("config", MODE_PRIVATE);
 		boolean isSetup = sp.getBoolean("setup", false);
-		
+		String telNum = sp.getString("telnum", null);
+		/*
 		if(isSetup){
 			setContentView(R.layout.activity_lost_find);
 		}else {
 			Intent intent = new Intent(LostAndfindActivity.this, Setup1Activity.class);
 			startActivity(intent);
 			finish();
+		}
+		*/
+		
+		setContentView(R.layout.activity_lost_find);
+		
+		
+		tv_safe_phone_number = (TextView) findViewById(R.id.tv_safe_phone_number);
+		iv_face = (ImageView) findViewById(R.id.iv_face);
+		if(telNum!=null){
+			tv_safe_phone_number.setText(telNum);
+		}
+		
+		if(isSetup){
+			iv_face.setBackgroundResource(R.drawable.lock);
+		}else {
+			iv_face.setBackgroundResource(R.drawable.unlock);
 		}
 		
 		

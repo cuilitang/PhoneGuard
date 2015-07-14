@@ -34,23 +34,22 @@ public class SelectContactAcctivity extends Activity {
 		lv = (ListView) findViewById(R.id.list_select_contact);
 		final List<Map<String, String>> list  = getContactInfo();//取出联系人信息
 		
-		lv.setAdapter(new SimpleAdapter(this, list, R.layout.activity_select_contact, new String[]{"name","telnum"}, new int[]{R.id.tv_name,R.id.tv_phone}));
+		lv.setAdapter(new SimpleAdapter(this, list, R.layout.view_contact_item, new String[]{"name","telnum"}, new int[]{R.id.tv_name,R.id.tv_phone}));
 		
 		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 				
-				String phone = list.get(position).get("phone");
+				String telnum = list.get(position).get("telnum");
 				Intent intent = new Intent();
-				intent.putExtra("phone", phone);
+				intent.putExtra("telnum", telnum);
 				setResult(0, intent);
 				finish();
 				
 				
 			}
 		});
-		
 		
 		
 		

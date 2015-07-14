@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.CheckBox;
+import android.widget.Toast;
 
 /**
  * 手机防盗-设置向导-界面-第四步
@@ -14,12 +18,23 @@ import android.view.Menu;
  */
 public class Setup4Activity extends BaseSetupActivity {
 
-	private SharedPreferences sp;
+
+	private CheckBox cb_on_off;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setup4);
+		cb_on_off = (CheckBox) findViewById(R.id.cb_on_off);
+		
+		//回显
+		boolean isSetup = sp.getBoolean("setup", false);
+		if(isSetup){
+			cb_on_off.setChecked(true);
+		}
+		
+		
+		
 		
 		
 	}
@@ -34,9 +49,14 @@ public class Setup4Activity extends BaseSetupActivity {
 	@Override
 	public void showNext() {
 		//记录下来已经运行过设置向导，下次就直接进入手机防盗主界面了
-		sp = getSharedPreferences("config", MODE_PRIVATE);
 		Editor edtor = sp.edit();
-		edtor.putBoolean("setup", true);
+		if(cb_on_off.isChecked()){
+			edtor.putBoolean("setup", true);
+		}else {
+			Toast.makeText(this, "您尚未开启手机防盗服务！请开启服务，不然本功能无法正常使用!", Toast.LENGTH_SHORT).show();;
+			return;
+		}
+		
 		edtor.commit();
 		
 		Intent intent = new Intent(Setup4Activity.this, LostAndfindActivity.class);

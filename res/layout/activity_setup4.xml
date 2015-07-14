@@ -18,9 +18,10 @@
     
      
      <CheckBox
+         android:id="@+id/cb_on_off"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-        android:text="点击开启手机防盗保护" 
+        android:text="是否开启手机防盗保护" 
         android:textSize="22sp"
         
        

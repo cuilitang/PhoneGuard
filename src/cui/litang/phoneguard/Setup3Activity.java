@@ -85,7 +85,7 @@ public class Setup3Activity extends BaseSetupActivity {
 			return;
 		}
 		
-		String phoneNum = data.getStringExtra("phone").toString().replace("-", "");
+		String phoneNum = data.getStringExtra("telnum").toString().replace("-", "");
 		ed_telnum.setText(phoneNum);
 	}
 
