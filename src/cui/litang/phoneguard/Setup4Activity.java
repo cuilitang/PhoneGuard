@@ -28,8 +28,8 @@ public class Setup4Activity extends BaseSetupActivity {
 		cb_on_off = (CheckBox) findViewById(R.id.cb_on_off);
 		
 		//回显
-		boolean isSetup = sp.getBoolean("setup", false);
-		if(isSetup){
+		boolean isStart = sp.getBoolean("start", false);
+		if(isStart){
 			cb_on_off.setChecked(true);
 		}
 		
@@ -51,7 +51,7 @@ public class Setup4Activity extends BaseSetupActivity {
 		//记录下来已经运行过设置向导，下次就直接进入手机防盗主界面了
 		Editor edtor = sp.edit();
 		if(cb_on_off.isChecked()){
-			edtor.putBoolean("setup", true);
+			edtor.putBoolean("start", true);
 		}else {
 			Toast.makeText(this, "您尚未开启手机防盗服务！请开启服务，不然本功能无法正常使用!", Toast.LENGTH_SHORT).show();;
 			return;

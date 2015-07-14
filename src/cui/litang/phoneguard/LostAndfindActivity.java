@@ -27,7 +27,7 @@ public class LostAndfindActivity extends Activity {
 		
 		super.onCreate(savedInstanceState);
 		sp = getSharedPreferences("config", MODE_PRIVATE);
-		boolean isSetup = sp.getBoolean("setup", false);
+		boolean isStart = sp.getBoolean("start", false);
 		String telNum = sp.getString("telnum", null);
 		/*
 		if(isSetup){
@@ -48,7 +48,7 @@ public class LostAndfindActivity extends Activity {
 			tv_safe_phone_number.setText(telNum);
 		}
 		
-		if(isSetup){
+		if(isStart){
 			iv_face.setBackgroundResource(R.drawable.lock);
 		}else {
 			iv_face.setBackgroundResource(R.drawable.unlock);
