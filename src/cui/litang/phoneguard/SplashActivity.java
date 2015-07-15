@@ -1,6 +1,7 @@
 package cui.litang.phoneguard;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -97,6 +98,10 @@ public class SplashActivity extends Activity {
 		
 		sp = getSharedPreferences("config", MODE_PRIVATE);
 		boolean update = sp.getBoolean("update", false);
+		
+		//拷贝数据库
+		copyDB();
+		
 		if(update){
 			checkUpdate();
 		}else {
@@ -117,6 +122,30 @@ public class SplashActivity extends Activity {
 		
 	}
 	
+	/**
+	 * 拷贝号码归属地数据库
+	 */
+	private void copyDB() {
+		try{
+			File file = new File(getFilesDir(),"address.db");
+			if(file.exists()&&file.length()>0){
+				Log.i(TAG, "已经拷贝过");
+			}else {
+				InputStream is = getAssets().open("address.db");
+				FileOutputStream fos = new FileOutputStream(file);
+				byte[] buffer = new byte[1024];
+				int len = 0;
+				while((len=is.read(buffer))!=-1){
+					fos.write(buffer,0,len);
+				}
+				is.close();
+				fos.close();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * 显示升级对话框
 	 */

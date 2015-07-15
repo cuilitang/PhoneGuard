@@ -76,6 +76,10 @@ public class HomeActivity extends Activity {
 					
 					break;
 				
+				case 7:
+					intent = new Intent(HomeActivity.this,TookitActivity.class);
+					startActivity(intent);
+					break;
 				case 8://进入设置中心
 					intent = new Intent(HomeActivity.this,SettingActivity.class);
 					startActivity(intent);
