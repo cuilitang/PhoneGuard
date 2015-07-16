@@ -1,7 +1,7 @@
 package cui.litang.phoneguard.recevier;
 
 import cui.litang.phoneguard.R;
-import cui.litang.phoneguard.Service.GPSService;
+import cui.litang.phoneguard.service.GPSService;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;

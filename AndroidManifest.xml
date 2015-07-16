@@ -15,9 +15,12 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <!-- GPS -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <!-- 打电话 -->
+     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
 
     <application
         android:allowBackup="true"
@@ -80,9 +83,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="cui.litang.phoneguard.Service.GPSService" >
-        </service>
-
+        <service android:name="cui.litang.phoneguard.service.GPSService" />
+        <service android:name="cui.litang.phoneguard.service.TelAreaService" />
+		
         <activity
             android:name="cui.litang.phoneguard.TookitActivity"
             android:label="@string/title_activity_tookit" >

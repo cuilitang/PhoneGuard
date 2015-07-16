@@ -22,6 +22,23 @@
         android:id="@+id/clt_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+      
+      <cui.litang.phoneguard.ui.SettingItemView
+        cuilitang:title="设置号码归属地来电弹窗"
+        cuilitang:on="号码归属地弹窗已打开"
+        cuilitang:off="号码归属地弹窗已关闭"
+        android:id="@+id/clt_tel_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+      
+      <cui.litang.phoneguard.ui.SettingClickView
+        android:id="@+id/clt_changebg"
+        cuilitang:title="归属地提示框风格"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </cui.litang.phoneguard.ui.SettingClickView>
+    
+      
     
 
 </LinearLayout>
