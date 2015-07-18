@@ -20,9 +20,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
     <!-- 打电话 -->
-     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
-     
-     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:allowBackup="true"
@@ -87,7 +86,7 @@
 
         <service android:name="cui.litang.phoneguard.service.GPSService" />
         <service android:name="cui.litang.phoneguard.service.TelAreaService" />
-		
+
         <activity
             android:name="cui.litang.phoneguard.TookitActivity"
             android:label="@string/title_activity_tookit" >
@@ -95,6 +94,10 @@
         <activity
             android:name="cui.litang.phoneguard.TelAreaActivity"
             android:label="@string/title_activity_tel_area" >
+        </activity>
+        <activity
+            android:name="cui.litang.phoneguard.BlackListActivity"
+            android:label="@string/title_activity_black_list" >
         </activity>
     </application>
 

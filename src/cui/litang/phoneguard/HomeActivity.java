@@ -75,6 +75,10 @@ public class HomeActivity extends Activity {
 					}
 					
 					break;
+				case 1://通讯卫士：黑名单管理
+					intent = new Intent(HomeActivity.this,BlackListActivity.class);
+					startActivity(intent);
+					break;
 				
 				case 7:
 					intent = new Intent(HomeActivity.this,TookitActivity.class);

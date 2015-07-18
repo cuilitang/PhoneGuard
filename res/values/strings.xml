@@ -11,5 +11,6 @@
     <string name="sample_device_admin">设置管理员权限</string>
     <string name="title_activity_tookit">TookitActivity</string>
     <string name="title_activity_tel_area">TelAreaActivity</string>
+    <string name="title_activity_black_list">BlackListActivity</string>
 
 </resources>
