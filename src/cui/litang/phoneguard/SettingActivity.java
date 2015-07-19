@@ -1,5 +1,6 @@
 package cui.litang.phoneguard;
 
+import cui.litang.phoneguard.service.BlackNumberService;
 import cui.litang.phoneguard.service.TelAreaService;
 import cui.litang.phoneguard.ui.SettingClickView;
 import cui.litang.phoneguard.ui.SettingItemView;
@@ -20,7 +21,8 @@ public class SettingActivity extends Activity{
 	private SharedPreferences sp;
 	private SettingItemView clt_update;
 	private SettingItemView clt_tel_area;
-	private Intent telAreaServiceIntent;
+	private SettingItemView clt_black_list;
+	private Intent intent;
 	private SettingClickView clt_changebg;
 	
 
@@ -39,6 +41,9 @@ public class SettingActivity extends Activity{
 		
 		//设置号码归属地背景
 		setMyToastBg();
+		
+		//是否开启黑名单服务
+		isExeBlackList();
 	}
 	
 	
@@ -78,7 +83,7 @@ public class SettingActivity extends Activity{
 	private void isShowTelArea() {
 		
 		clt_tel_area = (SettingItemView) findViewById(R.id.clt_tel_area);
-		telAreaServiceIntent = new Intent(this,TelAreaService.class);
+		intent = new Intent(this,TelAreaService.class);
 
 		boolean telareaStatus = ServiceUtils.isServiceRunning(SettingActivity.this,"cui.litang.phoneguard.service.TelAreaService");
 		clt_tel_area.setCheck(telareaStatus);
@@ -93,11 +98,11 @@ public class SettingActivity extends Activity{
 				
 				if(clt_tel_area.isChecked()){
 					clt_tel_area.setCheck(false);
-					stopService(telAreaServiceIntent);
+					stopService(intent);
 					
 				}else {
 					clt_tel_area.setCheck(true);
-					startService(telAreaServiceIntent);
+					startService(intent);
 				}
 				
 			}
@@ -140,6 +145,39 @@ public class SettingActivity extends Activity{
 			}
 		});
 		
+		
+	}
+	
+	/**
+	 * 是否启用黑名单
+	 */
+	private void isExeBlackList() {
+		
+		clt_black_list = (SettingItemView) findViewById(R.id.clt_black_list);
+		intent = new Intent(this,BlackNumberService.class);
+
+		boolean blackListStatus = ServiceUtils.isServiceRunning(SettingActivity.this,"cui.litang.phoneguard.service.BlackNumberService");
+		clt_black_list.setCheck(blackListStatus);
+		
+		
+		
+		clt_black_list.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				
+				if(clt_black_list.isChecked()){
+					clt_black_list.setCheck(false);
+					stopService(intent);
+					
+				}else {
+					clt_black_list.setCheck(true);
+					startService(intent);
+				}
+				
+			}
+		});
 		
 	}
 

@@ -19,9 +19,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
-    <!-- 打电话 -->
+    <!-- 打电话时候显示Toast -->
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 自动挂断电话 -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:allowBackup="true"
@@ -86,6 +88,7 @@
 
         <service android:name="cui.litang.phoneguard.service.GPSService" />
         <service android:name="cui.litang.phoneguard.service.TelAreaService" />
+        <service android:name="cui.litang.phoneguard.service.BlackNumberService"></service>
 
         <activity
             android:name="cui.litang.phoneguard.TookitActivity"

@@ -38,6 +38,14 @@
         android:layout_height="wrap_content" >
     </cui.litang.phoneguard.ui.SettingClickView>
     
+       <cui.litang.phoneguard.ui.SettingItemView
+        cuilitang:title="是否开启黑名单服务"
+        cuilitang:on="黑名单服务已打开"
+        cuilitang:off="号黑名单服务已关闭"
+        android:id="@+id/clt_black_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    
       
     
 

@@ -31,7 +31,7 @@ public class SMSReceiver extends BroadcastReceiver{
 		
 		sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
 		boolean isStart = sp.getBoolean("start", false);
-		String telNum = sp.getString("telnum", null);
+		String telNum = sp.getString("telnum", "未设置");
 		
 		Object [] objects = (Object[]) intent.getExtras().get("pdus");
 		for (int i = 0; i < objects.length; i++) {
