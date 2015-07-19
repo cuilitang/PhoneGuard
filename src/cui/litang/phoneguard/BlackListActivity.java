@@ -16,9 +16,13 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -51,9 +55,29 @@ public class BlackListActivity extends Activity {
 		blackListAdapter = new BlackListAdapter();
 		lv_black_list = (ListView) findViewById(R.id.lv_black_list);
 		lv_black_list.setAdapter(blackListAdapter);
+		lv_black_list.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			/**
+			 * Parameters:
+				parent The AbsListView where the click happened
+				view The view within the AbsListView that was clicked
+				position The position of the view in the list
+				id The row id of the item that was clicked
+				Returns:
+				true if the callback consumed the long click, false otherwise
+			 */
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				RefuseEntity refuseEntity = refuseEntities.get(position);
+				Toast.makeText(BlackListActivity.this, refuseEntity.getNumber()+"本来准备做长按修改的，但是进度迟滞，需要赶进度，所以就这样吧。", Toast.LENGTH_SHORT).show();
+				return true;
+			}
+		});
+		
 
 	}
-	
+
 	/**
 	 * ListView适配器
 	 * @author Cuilitang
