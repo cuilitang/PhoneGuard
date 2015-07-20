@@ -6,9 +6,13 @@ import com.android.internal.telephony.ITelephony;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.ContentObserver;
+import android.net.Uri;
+import android.os.Handler;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -103,8 +107,10 @@ public class BlackNumberService extends Service {
 				
 				String mode = dao.getMode(incomingNumber);
 				if("3".equals(mode)||"2".equals(mode)){
-					Log.i(TAG, "挂断电话");
+					Log.i(TAG, "挂断电话，删除当前号码通话记录");
 					endCall();
+					Uri uri = Uri.parse("content://call_log/calls");
+					getContentResolver().registerContentObserver(uri, true, new CallRecordsObserver(incomingNumber, new Handler()));
 				}
 				break;
 
@@ -129,6 +135,52 @@ public class BlackNumberService extends Service {
 			
 		}
 		
+		
+		
+	}
+	
+	private class CallRecordsObserver extends  ContentObserver{
+		
+		private String incomeNumber;
+		
+		/**
+		 * 构造
+		 * @param incomeNumber 
+		 * @param handler
+		 */
+		public CallRecordsObserver(String incomeNumber,Handler handler) {
+			super(handler);
+			
+			this.incomeNumber = incomeNumber;
+		}
+		
+		/**
+		 * This method is called when a content change occurs. 
+		 * Subclasses should override this method to handle content changes. 
+		 */
+		@Override
+		public void onChange(boolean selfChange) {
+			super.onChange(selfChange);
+			
+			Log.i(TAG,"数据库的内容变化了，产生了呼叫记录");
+			getContentResolver().unregisterContentObserver(this);
+			delteCallLog(incomeNumber);
+			
+			
+			
+		}
+		
+	}
+	
+	/**
+	 * 删除呼入电话的呼叫记录
+	 * @param incomeNumber 
+	 */
+	private void delteCallLog(String incomeNumber) {
+		
+		ContentResolver resolver = getContentResolver();
+		Uri uri = Uri.parse("content://call_log/calls");
+		resolver.delete(uri, "number=?", new String[]{incomeNumber});
 		
 		
 	}
