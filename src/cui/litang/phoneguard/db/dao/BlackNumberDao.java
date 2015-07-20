@@ -86,6 +86,30 @@ public class BlackNumberDao {
 	}
 	
 	/**
+	 * 根据传入的条件查询数据
+	 * @param limit  加载多少条
+	 * @param  offset 起始位置
+	 * @return
+	 */
+	public List<RefuseEntity> loadByCondition(int limit,int offset){
+		
+		ArrayList<RefuseEntity> refuseList = new ArrayList<RefuseEntity>();
+		SQLiteDatabase database = helper.getReadableDatabase();
+		Cursor cursor = database.rawQuery("select number,mode from refuselist order by id  limit ? offset ?",new String[]{String.valueOf(limit),String.valueOf(offset)});
+		
+		while(cursor.moveToNext()){
+			RefuseEntity refuseEntity = new RefuseEntity();
+			refuseEntity.setNumber(cursor.getString(0));
+			refuseEntity.setMode(cursor.getString(1));
+			refuseList.add(refuseEntity);
+		}
+		
+		cursor.close();
+		database.close();
+		return refuseList;
+	}
+	
+	/**
 	 * 保存新的黑名单号码
 	 * @param refuseEntity  黑名单号码实体
 	 */

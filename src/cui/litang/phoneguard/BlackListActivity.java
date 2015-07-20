@@ -14,24 +14,34 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * 黑名单功能前台
+ * listView下面，下拉显示更多和没有更多数据了，没有实现
+ * @author Cuilitang
+ * @Date 2015年7月20日
+ */
 public class BlackListActivity extends Activity {
 
 	protected static final String TAG = "BlackListActivity";
@@ -45,16 +55,58 @@ public class BlackListActivity extends Activity {
 	private List<RefuseEntity> refuseEntities;
 	private BlackListAdapter blackListAdapter;
 	private ListView lv_black_list;
+	private LinearLayout ll_loading;
+	private int limit = 20; //加载数据条数
+	private int offset = 0; //起始位置
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_black_list);
 		dao = new BlackNumberDao(BlackListActivity.this);
-		refuseEntities = dao.loadAll();
-		blackListAdapter = new BlackListAdapter();
 		lv_black_list = (ListView) findViewById(R.id.lv_black_list);
-		lv_black_list.setAdapter(blackListAdapter);
+		ll_loading = (LinearLayout) findViewById(R.id.ll_loading);
+
+		
+		fillData();
+		
+		//添加滚动监听   scroll [skrəʊl]
+		lv_black_list.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				
+				switch (scrollState) {
+				
+				case SCROLL_STATE_IDLE:
+					int bottomPositon = lv_black_list.getLastVisiblePosition();
+					if(bottomPositon==(refuseEntities.size()-1)){
+						Log.i(TAG, "正在加载新的数据....");
+						offset+=limit;
+						fillData();
+						
+					}
+					break;
+				case SCROLL_STATE_TOUCH_SCROLL:
+					Log.i(TAG, "滑动中....");
+					break;
+				case SCROLL_STATE_FLING:
+					Log.i(TAG, "滑行中....");
+					break;
+				default:
+					break;
+				}
+			}
+			
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				//  Auto-generated method stub
+				
+			}
+		});
+		
+		//添加长按监听
 		lv_black_list.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			/**
@@ -76,6 +128,46 @@ public class BlackListActivity extends Activity {
 		});
 		
 
+	}
+	/**
+	 * 向ListView填充数据
+	 */
+	private void fillData() {
+		
+		ll_loading.setVisibility(View.VISIBLE);
+		//DB读取数据
+		new Thread(){
+			public void run() {
+				if(refuseEntities ==null){
+					refuseEntities = dao.loadByCondition(limit, offset);
+				} else {
+					
+					refuseEntities.addAll(dao.loadByCondition(limit, offset));
+				}
+				
+				runOnUiThread(new Runnable() {	//更新UI
+					
+					@Override
+					public void run() {
+						
+						ll_loading.setVisibility(View.INVISIBLE);
+						
+						if(blackListAdapter==null){
+							
+							blackListAdapter = new BlackListAdapter();
+							lv_black_list.setAdapter(blackListAdapter);
+						}else {
+							
+							blackListAdapter.notifyDataSetChanged();
+						}
+						
+						
+						
+					}
+				});
+			};
+			
+		}.start();
 	}
 
 	/**
