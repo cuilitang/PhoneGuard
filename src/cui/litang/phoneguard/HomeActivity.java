@@ -29,7 +29,7 @@ public class HomeActivity extends Activity {
 	private GridView gv_jiugongge;
 	private MyAdapter adapter;
 	private static String [] names = {
-		"手机防盗","通讯卫士","软件管理",
+		"手机防盗","通讯卫士","应用管理",
 		"进程管理","流量统计","手机杀毒",
 		"缓存清理","高级工具","设置中心"
 		
@@ -77,6 +77,11 @@ public class HomeActivity extends Activity {
 					break;
 				case 1://通讯卫士：黑名单管理
 					intent = new Intent(HomeActivity.this,BlackListActivity.class);
+					startActivity(intent);
+					break;
+					
+				case 2://软件管理  软件启动、卸载、分享
+					intent = new Intent(HomeActivity.this,AppManagerActivity.class);
 					startActivity(intent);
 					break;
 				
