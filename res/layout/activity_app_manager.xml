@@ -78,6 +78,7 @@
         android:text="XX程序:XX个"
         android:textColor="#ffffff"
         android:background="#ff888888"
+        android:gravity="center"
       />
  </FrameLayout>
 </LinearLayout>
