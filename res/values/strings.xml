@@ -13,5 +13,6 @@
     <string name="title_activity_tel_area">TelAreaActivity</string>
     <string name="title_activity_black_list">BlackListActivity</string>
     <string name="title_activity_app_manager">AppManagerActivity</string>
+    <string name="title_activity_process_manager">ProcessManagerActivity</string>
 
 </resources>

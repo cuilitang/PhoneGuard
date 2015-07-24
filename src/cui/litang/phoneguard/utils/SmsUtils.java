@@ -3,6 +3,13 @@ package cui.litang.phoneguard.utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import net.tsz.afinal.core.Arrays;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -62,11 +69,32 @@ public class SmsUtils {
 		xs.attribute(null, "count", count+"");
 		int process = 0;
 		while(cursor.moveToNext()){
+			
 			String body = cursor.getString(0);
+			
+			char[] fromCharArray = body.toCharArray();
+			ArrayList<Character> list = new ArrayList<Character>();
+			for(int i=0; i<fromCharArray.length;i++){
+				if( Character.valueOf((char)0)!=Character.valueOf(fromCharArray[i])){
+					list.add(fromCharArray[i]);
+				}
+			}
+			
+			char[] toCharArray = new char[list.size()];
+			for(int i = 0; i<list.size();i++){
+				toCharArray[i] = list.get(i);
+			}
+			
+			body = new String(toCharArray);
+			
 			String address = cursor.getString(1);
 			String type = cursor.getString(2);
 			String date = cursor.getString(3);
-		
+			
+			if(body==null)body="";
+			if(address==null)address="";
+			System.out.println(body);
+			
 			xs.startTag(null, "sms");
 			
 			xs.startTag(null, "body");
@@ -88,6 +116,7 @@ public class SmsUtils {
 			xs.endTag(null, "sms");
 			
 			process++;
+			System.out.println(process);
 			callBack.onBackup(process);
 		}
 		

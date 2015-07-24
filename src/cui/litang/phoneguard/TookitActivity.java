@@ -68,7 +68,7 @@ public class TookitActivity extends Activity {
 					
 					runOnUiThread(new Runnable() {
 						public void run() {
-							Toast.makeText(TookitActivity.this, "备份成功", Toast.LENGTH_SHORT).show();
+							Toast.makeText(TookitActivity.this, "已经将数据备份到SD卡根目录backup.xml", Toast.LENGTH_LONG).show();
 						}
 					});
 				} catch (Exception e) {
@@ -97,10 +97,12 @@ public class TookitActivity extends Activity {
 	 * @param view
 	 */
 	public void restoreSMS(View view) {
-		
+		Toast.makeText(this, "测试功能，无法使用", Toast.LENGTH_SHORT).show();
+		return;
+		/*
 		SmsUtils.restoreSms(TookitActivity.this, true);
 		Toast.makeText(this, "还原成功", 0).show();
-		
+		*/
 	}
 
 
