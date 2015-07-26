@@ -70,12 +70,12 @@
          android:fastScrollEnabled="true"
          android:overScrollMode="never" >
      </ListView>
-     
+     <!-- XX程序:XX个 -->
      <TextView 
      	android:id="@+id/tv_freeze_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="XX程序:XX个"
+        android:text="加载中"
         android:textColor="#ffffff"
         android:background="#ff888888"
         android:gravity="center"

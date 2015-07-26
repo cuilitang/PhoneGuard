@@ -87,7 +87,7 @@ public class AppManagerActivity extends Activity implements OnClickListener {
 		long SDCardAvailSpace = getAvailSpace(Environment.getExternalStorageDirectory().getAbsolutePath());
 		long RamAvailSpace = getAvailSpace(Environment.getDataDirectory().getAbsolutePath());
 		
-		tv_avail_ram.setText("内存可用："+Formatter.formatFileSize(AppManagerActivity.this, RamAvailSpace));
+		tv_avail_ram.setText("机身存储可用："+Formatter.formatFileSize(AppManagerActivity.this, RamAvailSpace));
 		tv_avail_sdcard.setText("SD可用："+Formatter.formatFileSize(AppManagerActivity.this, SDCardAvailSpace));
 		
 		fillData();
