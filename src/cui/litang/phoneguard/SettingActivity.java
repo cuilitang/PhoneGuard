@@ -22,7 +22,6 @@ public class SettingActivity extends Activity{
 	private SettingItemView clt_update;
 	private SettingItemView clt_tel_area;
 	private SettingItemView clt_black_list;
-	private Intent intent;
 	private SettingClickView clt_changebg;
 	
 
@@ -83,7 +82,7 @@ public class SettingActivity extends Activity{
 	private void isShowTelArea() {
 		
 		clt_tel_area = (SettingItemView) findViewById(R.id.clt_tel_area);
-		intent = new Intent(this,TelAreaService.class);
+		final Intent areaIntent = new Intent(this,TelAreaService.class);
 
 		boolean telareaStatus = ServiceUtils.isServiceRunning(SettingActivity.this,"cui.litang.phoneguard.service.TelAreaService");
 		clt_tel_area.setCheck(telareaStatus);
@@ -98,11 +97,11 @@ public class SettingActivity extends Activity{
 				
 				if(clt_tel_area.isChecked()){
 					clt_tel_area.setCheck(false);
-					stopService(intent);
+					stopService(areaIntent);
 					
 				}else {
 					clt_tel_area.setCheck(true);
-					startService(intent);
+					startService(areaIntent);
 				}
 				
 			}
@@ -154,7 +153,7 @@ public class SettingActivity extends Activity{
 	private void isExeBlackList() {
 		
 		clt_black_list = (SettingItemView) findViewById(R.id.clt_black_list);
-		intent = new Intent(this,BlackNumberService.class);
+		final Intent blackListIntent = new Intent(this,BlackNumberService.class);
 
 		boolean blackListStatus = ServiceUtils.isServiceRunning(SettingActivity.this,"cui.litang.phoneguard.service.BlackNumberService");
 		clt_black_list.setCheck(blackListStatus);
@@ -169,11 +168,11 @@ public class SettingActivity extends Activity{
 				
 				if(clt_black_list.isChecked()){
 					clt_black_list.setCheck(false);
-					stopService(intent);
+					stopService(blackListIntent);
 					
 				}else {
 					clt_black_list.setCheck(true);
-					startService(intent);
+					startService(blackListIntent);
 				}
 				
 			}

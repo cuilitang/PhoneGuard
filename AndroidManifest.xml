@@ -100,10 +100,10 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="cui.litang.phoneguard.service.GPSService" />
-        <service android:name="cui.litang.phoneguard.service.TelAreaService" />
-        <service android:name="cui.litang.phoneguard.service.BlackNumberService" >
-        </service>
+        <service android:name="cui.litang.phoneguard.service.GPSService" > </service>
+        <service android:name="cui.litang.phoneguard.service.TelAreaService" > </service>
+        <service android:name="cui.litang.phoneguard.service.BlackNumberService" > </service>
+       
 
         <activity
             android:name="cui.litang.phoneguard.TookitActivity"
