@@ -97,14 +97,14 @@
             android:text="全选" />
 
         <Button
-            android:onClick="selectOppo"
+            android:onClick="invertSelection"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="反选" />
 
         <Button
-            android:onClick="killAll"
+            android:onClick="killTask"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -8,6 +8,7 @@ import cui.litang.phoneguard.entity.TaskInfo;
 import cui.litang.phoneguard.utils.SystemInfoUtils;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.text.format.Formatter;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -23,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TaskManagerActivity extends Activity {
 
@@ -58,6 +62,7 @@ public class TaskManagerActivity extends Activity {
 		
 		tv_task_status = (TextView) findViewById(R.id.tv_task_status);  //用户进程XX个
 		
+		//滚动监听
 		lv_task_manager.setOnScrollListener(new OnScrollListener() {
 			
 			@Override
@@ -82,10 +87,44 @@ public class TaskManagerActivity extends Activity {
 			}
 		});
 		
+		//Item 点击监听
+		lv_task_manager.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				TaskInfo taskInfo;
+				if(position == 0){
+					return;
+				}else if(position == userTaskInfos.size()+1){
+					return;
+				}else if (position<=userTaskInfos.size()) {
+					taskInfo = userTaskInfos.get(position-1);
+				}else {
+					taskInfo = systemTaskInfos.get(position-1-userTaskInfos.size()-1);
+				}
+				
+				if (getPackageName().equals(taskInfo.getPackageName())) {
+					return;
+				}
+				ViewHolder holder = (ViewHolder) view.getTag();
+				if(taskInfo.isChecked()){
+					taskInfo.setChecked(false);
+					holder.cb_task_status.setChecked(false);
+				}else {
+					taskInfo.setChecked(true);
+					holder.cb_task_status.setChecked(true);
+				}
+				
+			}
+		});
+		
 	
 
 
 	}
+	
+	
 	
 	/**
 	 * 填充ListView 数据
@@ -249,6 +288,83 @@ public class TaskManagerActivity extends Activity {
 		TextView tv_task_name;
 		TextView tv_task_memsize;
 		CheckBox cb_task_status;
+	}
+	
+	/**
+	 * 全选按钮相应方法
+	 * @param view
+	 */
+	public void selectAll(View view) {
+		
+		for (TaskInfo taskInfo : allTaskInfos) {
+			
+			if(getPackageName().equals(taskInfo.getPackageName())){
+				continue;
+			}
+			
+			taskInfo.setChecked(true);
+		}
+		adapter.notifyDataSetChanged();
+		
+	}
+	
+	/**
+	 * 反选按钮相应方法
+	 * @param view
+	 */
+	public void invertSelection(View view) {
+		
+		for (TaskInfo taskInfo : allTaskInfos) {
+			
+			if(getPackageName().equals(taskInfo.getPackageName())){
+				continue;
+			}else if(taskInfo.isChecked()){
+				taskInfo.setChecked(false);
+			}else {
+				taskInfo.setChecked(true);
+			}
+			
+			
+		}
+		adapter.notifyDataSetChanged();
+		
+	}
+	
+
+	/**
+	 * 清理按钮相应方法
+	 * @param view
+	 */
+	public void killTask(View view) {
+		ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+		int count = 0;
+		int savedMemo = 0;
+		ArrayList<TaskInfo> killedList = new ArrayList<TaskInfo>();
+		for (TaskInfo taskInfo : allTaskInfos) {
+			if(taskInfo.isChecked()){
+				am.killBackgroundProcesses(taskInfo.getPackageName());   //后台执行杀死动作
+				
+				if(taskInfo.isUserTask()){           //更新ui用     
+					userTaskInfos.remove(taskInfo);
+				}else {								//更新ui用
+					systemTaskInfos.remove(taskInfo);
+				}
+				killedList.add(taskInfo);
+				count++;
+				savedMemo += taskInfo.getMemoSize();
+			}
+		}
+		
+		allTaskInfos.removeAll(killedList);  //后台杀死的时候是 不分user和system的，直接按照allTaskList的isChecked属性状态进行删除，再次点击清除的时候会再清一遍。所以必须remove掉。
+		adapter.notifyDataSetChanged();   //更新ui的时候，直接进adapter，所以需要更新userTaskList和systemTaskList
+		
+		Toast.makeText(this, "杀死了"+count+"个进程，释放了"+Formatter.formatFileSize(this, savedMemo), Toast.LENGTH_SHORT).show();
+		
+		taskCount -= count;
+		availMemo += savedMemo;
+		
+		tv_task_count.setText("运行中的进程:"+taskCount+"个");
+		tv_mem_info.setText("剩余/总内存："+Formatter.formatFileSize(this, availMemo)+"/"+Formatter.formatFileSize(this, totalMemo));
 	}
 
 }
