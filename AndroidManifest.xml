@@ -103,7 +103,7 @@
         <service android:name="cui.litang.phoneguard.service.GPSService" > </service>
         <service android:name="cui.litang.phoneguard.service.TelAreaService" > </service>
         <service android:name="cui.litang.phoneguard.service.BlackNumberService" > </service>
-       
+        <service android:name="cui.litang.phoneguard.service.AutoCleanService"></service>
 
         <activity
             android:name="cui.litang.phoneguard.TookitActivity"
@@ -125,6 +125,7 @@
             android:name="cui.litang.phoneguard.TaskManagerActivity"
             android:label="@string/title_activity_process_manager" >
         </activity>
+        <activity android:name="cui.litang.phoneguard.TaskSettingActivity"></activity>
     </application>
 
 </manifest>

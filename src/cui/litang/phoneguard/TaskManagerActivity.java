@@ -9,6 +9,7 @@ import cui.litang.phoneguard.utils.SystemInfoUtils;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.text.format.Formatter;
@@ -202,15 +203,15 @@ public class TaskManagerActivity extends Activity {
 		@Override
 		public int getCount() {
 			
-			/*
+			
 			sp = getSharedPreferences("config", MODE_PRIVATE);
 			if(sp.getBoolean("show_system", false)){
 				return userTaskInfos.size()+1+systemTaskInfos.size()+1;
 			}else {
 				return userTaskInfos.size()+1;
-			}*/
+			}
 			
-			return userTaskInfos.size()+1+systemTaskInfos.size()+1;
+			//return userTaskInfos.size()+1+systemTaskInfos.size()+1;
 		}
 
 		@Override
@@ -365,6 +366,22 @@ public class TaskManagerActivity extends Activity {
 		
 		tv_task_count.setText("运行中的进程:"+taskCount+"个");
 		tv_mem_info.setText("剩余/总内存："+Formatter.formatFileSize(this, availMemo)+"/"+Formatter.formatFileSize(this, totalMemo));
+	}
+	
+	/**
+	 * 设置按钮对应方法
+	 * @param view
+	 */
+	public void enterSetting(View view) {
+		
+		Intent intent = new Intent(this,TaskSettingActivity.class);
+		startActivityForResult(intent, 0);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		adapter.notifyDataSetChanged();
 	}
 
 }
