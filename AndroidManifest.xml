@@ -99,12 +99,28 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+        <receiver android:name="cui.litang.phoneguard.recevier.MyWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            
+            <meta-data 
+                android:name="android.appwidget.provider"
+                android:resource="@xml/process_widget_provider"
+                />
+        </receiver>
+        <receiver android:name="cui.litang.phoneguard.recevier.KillAllReceiver">
+            <intent-filter >
+                <action android:name="cui.litang.phonegrand.KILL_ALL"/>
+            </intent-filter>
+        </receiver>
+       	
 
         <service android:name="cui.litang.phoneguard.service.GPSService" > </service>
         <service android:name="cui.litang.phoneguard.service.TelAreaService" > </service>
         <service android:name="cui.litang.phoneguard.service.BlackNumberService" > </service>
         <service android:name="cui.litang.phoneguard.service.AutoCleanService"></service>
-
+		<service android:name="cui.litang.phoneguard.service.UpdateWidgetService"></service>
         <activity
             android:name="cui.litang.phoneguard.TookitActivity"
             android:label="@string/title_activity_tookit" >
