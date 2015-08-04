@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cui.litang.phoneguard.BlackListActivity.ViewHolder;
+import cui.litang.phoneguard.db.dao.AppLockDao;
 import cui.litang.phoneguard.engine.AppInfoProvider;
 import cui.litang.phoneguard.entity.AppInfo;
 import cui.litang.phoneguard.utils.DensityUtil;
@@ -34,6 +35,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,6 +70,9 @@ public class AppManagerActivity extends Activity implements OnClickListener {
 	private LinearLayout ll_share;   //弹出窗口-分享
 	private LinearLayout ll_uninstall;  //弹出窗口-下载
 	
+	private ImageView iv_status;
+	protected AppLockDao dao;
+	
 	
 	
 	@Override
@@ -82,6 +87,8 @@ public class AppManagerActivity extends Activity implements OnClickListener {
 		tv_avail_ram = (TextView) findViewById(R.id.tv_avail_ram);
 		tv_avail_sdcard = (TextView) findViewById(R.id.tv_avail_sdcard);
 		tv_freeze_row = (TextView) findViewById(R.id.tv_freeze_row);
+		iv_status = (ImageView) findViewById(R.id.iv_status);
+		dao = new AppLockDao(this);
 		
 		//内存可用  XX sd卡可用XX
 		long SDCardAvailSpace = getAvailSpace(Environment.getExternalStorageDirectory().getAbsolutePath());
@@ -183,6 +190,38 @@ public class AppManagerActivity extends Activity implements OnClickListener {
 				set.addAnimation(sa);
 				
 				popupView.startAnimation(set);
+			}
+		});
+		
+		//长按打开程序锁
+		lv_app_manager.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				if(position==0){
+					return true;
+				}else if (position==(userAppInfos.size()+1)) {
+					return true;
+				}else if (position<=userAppInfos.size()) {
+					int newpostion = position - 1;
+					appInfo = userAppInfos.get(newpostion);
+				}else {
+					int newPosition = position -1 - userAppInfos.size() -1;
+					appInfo = systemAppInfos.get(newPosition);
+				}
+				
+				ViewHolder holder = (ViewHolder) view.getTag();
+				if(dao.find(appInfo.getPackname())){
+					//被锁定的程序，解除锁定，更新界面为打开的小锁图片
+					dao.delete(appInfo.getPackname());
+					holder.iv_status.setImageResource(R.drawable.unprotect);
+				}else{
+					//锁定程序，更新界面为关闭的锁
+					dao.save(appInfo.getPackname());
+					holder.iv_status.setImageResource(R.drawable.protect);
+				}
+				return true;
 			}
 		});
 		
@@ -416,6 +455,7 @@ public class AppManagerActivity extends Activity implements OnClickListener {
 				view = View.inflate(AppManagerActivity.this, R.layout.listview_item_app_info, null);
 				viewHolder = new ViewHolder();
 				viewHolder.iv_icon = (ImageView) view.findViewById(R.id.iv_app_icon);
+				viewHolder.iv_status = (ImageView) view.findViewById(R.id.iv_status);
 				viewHolder.tv_location = (TextView) view.findViewById(R.id.tv_app_location);
 				viewHolder.tv_name = (TextView) view.findViewById(R.id.tv_app_name);
 				
@@ -429,7 +469,12 @@ public class AppManagerActivity extends Activity implements OnClickListener {
 				viewHolder.tv_location.setText("手机内存");
 			}else {
 				viewHolder.tv_location.setText("外部存储");
-			}			
+			}
+			if(dao.find(appInfo.getPackname())){
+				viewHolder.iv_status.setImageResource(R.drawable.protect);
+			}else{
+				viewHolder.iv_status.setImageResource(R.drawable.unprotect);
+			}
 			
 			
 			return view;
@@ -441,6 +486,7 @@ public class AppManagerActivity extends Activity implements OnClickListener {
 		TextView tv_name;
 		TextView tv_location;
 		ImageView iv_icon;
+		ImageView iv_status;
 	}
 
 	

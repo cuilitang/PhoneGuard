@@ -41,8 +41,16 @@
        <cui.litang.phoneguard.ui.SettingItemView
         cuilitang:title="是否开启黑名单服务"
         cuilitang:on="黑名单服务已打开"
-        cuilitang:off="号黑名单服务已关闭"
+        cuilitang:off="黑名单服务已关闭"
         android:id="@+id/clt_black_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+       
+        <cui.litang.phoneguard.ui.SettingItemView
+        cuilitang:title="是否开启程序锁服务"
+        cuilitang:on="程序锁服务已打开"
+        cuilitang:off="程序锁服务已关闭"
+        android:id="@+id/clt_app_lock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     

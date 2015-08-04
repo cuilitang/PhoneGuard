@@ -1,5 +1,6 @@
 package cui.litang.phoneguard;
 
+import cui.litang.phoneguard.service.AppLockService;
 import cui.litang.phoneguard.service.BlackNumberService;
 import cui.litang.phoneguard.service.TelAreaService;
 import cui.litang.phoneguard.ui.SettingClickView;
@@ -22,6 +23,7 @@ public class SettingActivity extends Activity{
 	private SettingItemView clt_update;
 	private SettingItemView clt_tel_area;
 	private SettingItemView clt_black_list;
+	private SettingItemView clt_app_lock;
 	private SettingClickView clt_changebg;
 	
 
@@ -43,10 +45,14 @@ public class SettingActivity extends Activity{
 		
 		//是否开启黑名单服务
 		isExeBlackList();
+		
+		//是否开启程序锁服务
+		isExeAppLock();
 	}
 	
 	
 
+	
 	/**
 	 * 设置是否自动升级
 	 */
@@ -179,5 +185,46 @@ public class SettingActivity extends Activity{
 		});
 		
 	}
+	
+	
+	/**
+	 * 是否启用程序锁
+	 */
+	private void isExeAppLock() {
+
+		clt_app_lock = (SettingItemView) findViewById(R.id.clt_app_lock);
+		final Intent appLockIntent = new Intent(this,AppLockService.class);
+
+		boolean appLockStatus = ServiceUtils.isServiceRunning(SettingActivity.this,"cui.litang.phoneguard.service.AppLockService");
+		clt_app_lock.setCheck(appLockStatus);
+		
+		
+		
+		clt_app_lock.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				
+				if(clt_app_lock.isChecked()){
+					clt_app_lock.setCheck(false);
+					stopService(appLockIntent);
+					
+				}else {
+					clt_app_lock.setCheck(true);
+					startService(appLockIntent);
+				}
+				
+			}
+		});
+		
+	
+		
+		
+		
+	}
+
+
+
 
 }
