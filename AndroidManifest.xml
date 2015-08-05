@@ -78,7 +78,7 @@
             android:label="@string/title_activity_select_contact_acctivity" >
         </activity>
         <activity android:name="cui.litang.phoneguard.EnterPwdActivity" android:launchMode="singleInstance" android:excludeFromRecents="true"></activity>
-
+		<activity android:name="cui.litang.phoneguard.FlowmeterActivity"></activity>
         <receiver android:name="cui.litang.phoneguard.recevier.BootCompleteReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -146,6 +146,8 @@
             android:label="@string/title_activity_process_manager" >
         </activity>
         <activity android:name="cui.litang.phoneguard.TaskSettingActivity"></activity>
+        <activity android:name="cui.litang.phoneguard.AntivirusActivity"></activity>
+        <activity android:name="cui.litang.phoneguard.CacheCleanActivity"></activity>
     </application>
 
 </manifest>

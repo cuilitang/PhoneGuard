@@ -43,7 +43,7 @@ public class TookitActivity extends Activity {
 		
 		dialog = new ProgressDialog(this);
 		dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		dialog.setMessage("正在备短信");
+		dialog.setMessage("正在备份短信");
 		dialog.show();
 		
 		new Thread(){

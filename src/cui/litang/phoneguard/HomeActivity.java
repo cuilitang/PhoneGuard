@@ -88,7 +88,19 @@ public class HomeActivity extends Activity {
 					intent = new Intent(HomeActivity.this,TaskManagerActivity.class);
 					startActivity(intent);
 					break;
-				case 7:
+				case 4://流量统计
+					intent = new Intent(HomeActivity.this,FlowmeterActivity.class);
+					startActivity(intent);
+					break;
+				case 5://手机杀毒
+					intent = new Intent(HomeActivity.this,AntivirusActivity.class);
+					startActivity(intent);
+					break;
+				case 6://缓存清理
+					intent = new Intent(HomeActivity.this,CacheCleanActivity.class);
+					startActivity(intent);
+					break;
+				case 7: //高级工具
 					intent = new Intent(HomeActivity.this,TookitActivity.class);
 					startActivity(intent);
 					break;

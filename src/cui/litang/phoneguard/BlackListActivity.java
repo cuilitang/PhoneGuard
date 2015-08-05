@@ -2,7 +2,7 @@ package cui.litang.phoneguard;
 
 import java.util.List;
 
-import cui.litang.phoneguard.db.dao.BlackNumberDao;
+import cui.litang.phoneguard.db.dao.BlackNumberDAO;
 import cui.litang.phoneguard.entity.RefuseEntity;
 import android.os.Bundle;
 import android.app.Activity;
@@ -51,7 +51,7 @@ public class BlackListActivity extends Activity {
 	private CheckBox cb_refuse_call;
 	private CheckBox cb_refuse_sms;
 	private EditText et_black_number;
-	private BlackNumberDao dao;
+	private BlackNumberDAO dao;
 	private List<RefuseEntity> refuseEntities;
 	private BlackListAdapter blackListAdapter;
 	private ListView lv_black_list;
@@ -63,7 +63,7 @@ public class BlackListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_black_list);
-		dao = new BlackNumberDao(BlackListActivity.this);
+		dao = new BlackNumberDAO(BlackListActivity.this);
 		lv_black_list = (ListView) findViewById(R.id.lv_black_list);
 		ll_loading = (LinearLayout) findViewById(R.id.ll_loading);
 

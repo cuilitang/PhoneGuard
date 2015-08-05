@@ -3,7 +3,7 @@ package cui.litang.phoneguard.service;
 import java.util.List;
 
 import cui.litang.phoneguard.EnterPwdActivity;
-import cui.litang.phoneguard.db.dao.AppLockDao;
+import cui.litang.phoneguard.db.dao.AppLockDAO;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Service;
@@ -17,7 +17,7 @@ public class AppLockService extends Service {
 
 	private ScreenOffReceiver offReceiver;
 	private InnerReceiver innerReceiver;
-	private AppLockDao dao;
+	private AppLockDAO dao;
 	public List<String> packageNames;
 	private DataChangeReceiver dataChangeReceiver;
 	private ActivityManager am;
@@ -42,7 +42,7 @@ public class AppLockService extends Service {
 		registerReceiver(dataChangeReceiver, new IntentFilter("cui.litang.phonegrund.APPLOCK_CHANGE"));  //接收加锁程序变化广播
 		
 		am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-		dao = new AppLockDao(this);
+		dao = new AppLockDAO(this);
 		packageNames = dao.findAll();
 		flag = true;
 		intent = new Intent(getApplicationContext(),EnterPwdActivity.class);

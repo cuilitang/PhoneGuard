@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cui.litang.phoneguard.BlackListActivity.ViewHolder;
-import cui.litang.phoneguard.db.dao.AppLockDao;
+import cui.litang.phoneguard.db.dao.AppLockDAO;
 import cui.litang.phoneguard.engine.AppInfoProvider;
 import cui.litang.phoneguard.entity.AppInfo;
 import cui.litang.phoneguard.utils.DensityUtil;
@@ -71,7 +71,7 @@ public class AppManagerActivity extends Activity implements OnClickListener {
 	private LinearLayout ll_uninstall;  //弹出窗口-下载
 	
 	private ImageView iv_status;
-	protected AppLockDao dao;
+	protected AppLockDAO dao;
 	
 	
 	
@@ -88,7 +88,7 @@ public class AppManagerActivity extends Activity implements OnClickListener {
 		tv_avail_sdcard = (TextView) findViewById(R.id.tv_avail_sdcard);
 		tv_freeze_row = (TextView) findViewById(R.id.tv_freeze_row);
 		iv_status = (ImageView) findViewById(R.id.iv_status);
-		dao = new AppLockDao(this);
+		dao = new AppLockDAO(this);
 		
 		//内存可用  XX sd卡可用XX
 		long SDCardAvailSpace = getAvailSpace(Environment.getExternalStorageDirectory().getAbsolutePath());

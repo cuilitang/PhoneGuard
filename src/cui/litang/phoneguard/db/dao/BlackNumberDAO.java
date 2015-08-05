@@ -16,7 +16,7 @@ import cui.litang.phoneguard.entity.RefuseEntity;
  * @author Cuilitang
  * @Date 2015年7月18日
  */
-public class BlackNumberDao {
+public class BlackNumberDAO {
 	
 	private static final String TAG = "BlackNumberDao";
 	private BlackNumberDBOpenHelper helper;
@@ -25,7 +25,7 @@ public class BlackNumberDao {
 	 * 构造
 	 * @param context 上下文
 	 */
-	public BlackNumberDao(Context context) {
+	public BlackNumberDAO(Context context) {
 		
 		helper = new BlackNumberDBOpenHelper(context);
 	}

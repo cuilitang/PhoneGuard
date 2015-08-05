@@ -18,7 +18,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.SmsMessage;
 import android.util.Log;
-import cui.litang.phoneguard.db.dao.BlackNumberDao;
+import cui.litang.phoneguard.db.dao.BlackNumberDAO;
 
 /**
  * 黑名单功能拦截短信和电话服务
@@ -27,7 +27,7 @@ import cui.litang.phoneguard.db.dao.BlackNumberDao;
  */
 public class BlackNumberService extends Service {
 
-	private BlackNumberDao dao;
+	private BlackNumberDAO dao;
 	private TelephonyManager tm;
 	private MyListener listener;
 	private InnerSMSRecevier receiver;
@@ -43,7 +43,7 @@ public class BlackNumberService extends Service {
 	public void onCreate() {
 		
 		super.onCreate();
-		dao = new BlackNumberDao(this);
+		dao = new BlackNumberDAO(this);
 		tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 		
 		//拦截短信

@@ -107,7 +107,8 @@ public class SplashActivity extends Activity {
 		//发送快捷方式
 		AddShortCutToDesktop();
 		// 拷贝数据库
-		copyDB();
+		copyDB("address.db");
+		copyDB("antivirus.db");
 
 		if (update) {
 			checkUpdate();
@@ -131,13 +132,13 @@ public class SplashActivity extends Activity {
 	/**
 	 * 拷贝号码归属地数据库
 	 */
-	private void copyDB() {
+	private void copyDB(String fileName) {
 		try {
-			File file = new File(getFilesDir(), "address.db");
+			File file = new File(getFilesDir(), fileName);
 			if (file.exists() && file.length() > 0) {
 				Log.i(TAG, "已经拷贝过");
 			} else {
-				InputStream is = getAssets().open("address.db");
+				InputStream is = getAssets().open(fileName);
 				FileOutputStream fos = new FileOutputStream(file);
 				byte[] buffer = new byte[1024];
 				int len = 0;

@@ -16,7 +16,7 @@ import cui.litang.phoneguard.db.BlackNumberDBOpenHelper;
  * @author Cuilitang
  * @Date 2015-8-4 19:32:15
  */
-public class AppLockDao {
+public class AppLockDAO {
 	
 	private static final String TAG = "ApplockDao";
 	private AppLockDBOpenHelper helper;
@@ -26,7 +26,7 @@ public class AppLockDao {
 	 * 构造
 	 * @param context 上下文
 	 */
-	public AppLockDao(Context context) {
+	public AppLockDAO(Context context) {
 		
 		helper = new AppLockDBOpenHelper(context);
 		this.context = context;
