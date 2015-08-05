@@ -146,7 +146,7 @@
             android:label="@string/title_activity_process_manager" >
         </activity>
         <activity android:name="cui.litang.phoneguard.TaskSettingActivity"></activity>
-        <activity android:name="cui.litang.phoneguard.AntivirusActivity"></activity>
+        <activity android:name="cui.litang.phoneguard.AntivirusActivity" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
         <activity android:name="cui.litang.phoneguard.CacheCleanActivity"></activity>
     </application>
 
