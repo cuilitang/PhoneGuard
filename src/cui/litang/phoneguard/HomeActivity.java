@@ -137,7 +137,6 @@ public class HomeActivity extends Activity {
 					}
 				});
 				ok.setOnClickListener(new OnClickListener() {
-					
 
 					@Override
 					public void onClick(View v) {
@@ -148,6 +147,7 @@ public class HomeActivity extends Activity {
 						 
 
 						if (TextUtils.isEmpty(pwd)) {
+							
 							Toast.makeText(HomeActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
 							
 						} else{ //消掉对话框，进入手机防盗功能
@@ -162,8 +162,6 @@ public class HomeActivity extends Activity {
 								Toast.makeText(HomeActivity.this, "密码输入错误，请重试", Toast.LENGTH_SHORT).show();
 
 							}
-							
-							
 						}
 					}
 				});
@@ -171,9 +169,6 @@ public class HomeActivity extends Activity {
 				dialog = builder.create();
 				dialog.setView(view,0,0,0,0);
 				dialog.show();
-				
-				
-				
 			}
 
 			

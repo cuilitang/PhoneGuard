@@ -4,7 +4,11 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import cui.litang.phoneguard.utils.MD5Utils;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.IPackageDataObserver;
@@ -17,9 +21,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.text.TextUtils;
 import android.text.format.Formatter;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -28,6 +37,8 @@ import android.widget.Toast;
 /**
  * 缓存清理
  * 若是要想实现更丰富的ui效果，应该吧扫描出来的缓存信息放在listView里面
+ * 问题：
+ *  调用系统清理后UI没有更新.
  * @author Cuilitang
  * @Date 2015年8月6日
  */
@@ -37,6 +48,8 @@ public class CacheCleanActivity extends Activity {
 	private TextView tv_scan_status;
 	private PackageManager manager;
 	private LinearLayout ll_container;
+	private AlertDialog dialog;
+	private Button btn_clear_all;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +59,16 @@ public class CacheCleanActivity extends Activity {
 		tv_scan_status = (TextView) findViewById(R.id.tv_scan_status);
 		pb = (ProgressBar) findViewById(R.id.pb);
 		ll_container = (LinearLayout) findViewById(R.id.ll_container);
+		btn_clear_all = (Button) findViewById(R.id.btn_clear_all);
+		
+		btn_clear_all.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				showWarnDialog();
+			}
+		});
 		
 		scanCache();
 	}
@@ -79,7 +102,7 @@ public class CacheCleanActivity extends Activity {
 					
 					try {
 						getPackageSizeInfoMethod.invoke(manager, packageInfo.packageName,new MyPackageStatsObserver());
-						Thread.sleep(200);
+						Thread.sleep(150);
 					} catch (Exception e) {
 						//  Auto-generated catch block
 						e.printStackTrace();
@@ -218,9 +241,8 @@ public class CacheCleanActivity extends Activity {
 	
 	/**
 	 * 全部清理
-	 * @param view
 	 */
-	public void clearAll(View view){
+	private void clearAll(){
 		Method[] methods = PackageManager.class.getMethods();
 		for(Method method:methods){
 			if("freeStorageAndNotify".equals(method.getName())){
@@ -232,9 +254,46 @@ public class CacheCleanActivity extends Activity {
 				
 			}
 		}
+		FrameLayout frameLayout = (android.widget.FrameLayout) findViewById(R.id.fl_content);
+		LinearLayout ll_clear_all_container = (LinearLayout) findViewById(R.id.ll_clear_all_container);
 		
-		TextView tv_clear_all = (TextView) findViewById(R.id.tv_clear_all);
-		tv_clear_all.setVisibility(TextView.VISIBLE);
+		frameLayout.removeView(ll_container);
+		ll_clear_all_container.setVisibility(View.VISIBLE);
 	}
+	
 
+	/** 全部清理功能用户数据丢失风险警告
+	 * 
+	 */
+	public void showWarnDialog() {
+		
+		AlertDialog.Builder builder = new Builder(CacheCleanActivity.this);
+		View dialogView = View.inflate(CacheCleanActivity.this, R.layout.dialog_warn_lost_data, null);
+		
+		Button ok = (Button) dialogView.findViewById(R.id.ok);
+		Button cancel = (Button) dialogView.findViewById(R.id.cancel);
+		
+		cancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				dialog.dismiss();
+			}
+		});
+		
+		ok.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				
+				dialog.dismiss();
+				clearAll();
+			}	
+		});
+		
+		dialog = builder.create();
+		dialog.setView(dialogView,0,0,0,0);
+		dialog.show();
+	}
 }

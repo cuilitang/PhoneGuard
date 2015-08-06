@@ -32,30 +32,46 @@
             android:textColor="#ffffff" />
     </FrameLayout>
 
-    <LinearLayout
-        android:layout_weight="1000"
-        android:id="@+id/ll_container"
+    <FrameLayout  
+        android:id="@+id/fl_content"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
-        
-        <TextView 
-            android:id="@+id/tv_clear_all"
-            android:gravity="center"
-            android:visibility="invisible"
-            android:text="清理完毕！"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-    </LinearLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1000"
+        >
+	    <LinearLayout
+	        android:layout_weight="1000"
+	        android:id="@+id/ll_clear_all_container"
+	        android:visibility="invisible"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:orientation="vertical" >
+	        
+	        <TextView 
+	            android:id="@+id/tv_clear_all"
+	            android:gravity="center"
+	            
+	            android:text="清理完毕！"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            />
+	    </LinearLayout>
+	    
+	     <LinearLayout
+	        android:layout_weight="1000"
+	        android:id="@+id/ll_container"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:orientation="vertical" >
+	       
+	    </LinearLayout>
+    </FrameLayout>
 
     <Button
         android:id="@+id/btn_clear_all"
-        android:onClick="clearAll"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="全部清理，此处应有警告框。" 
-        android:visibility="invisible"
+        android:text="全部清理" 
+       
          
         />
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="#ff6600"
+     >
+    
+	<TextView 
+	    android:layout_width="300dp"
+	    android:layout_height="50dp"
+	    
+	    android:gravity="center"
+	    android:text="操作风险提示"
+	    android:textColor="#000000"
+	    android:textSize="22sp"
+	/>
+
+	<TextView 
+    	android:id="@+id/tv_warn_content"
+    	android:layout_width="300dp"
+    	android:layout_height="wrap_content"
+    	android:text="        此操作将清理您手机上所有APP的缓存数据，将可能导致用户数据丢失，请谨慎操作！"
+    	
+    />
+	
+	
+	<LinearLayout 
+	    android:layout_width="300dp"
+	    android:layout_height="wrap_content"
+		android:gravity="center_horizontal"
+		android:orientation="horizontal"
+	    >
+	    
+		<Button 
+			android:id="@+id/ok"
+			android:layout_width="150dp"
+			android:layout_height="wrap_content"
+			android:text="确定"
+		    />	        
+		<Button 
+		    android:id="@+id/cancel"
+		    android:layout_width="150dp"
+		    android:layout_height="wrap_content"
+		    android:text="取消"
+		    android:background="#00FF00"
+		    />
+	        
+	        
+	</LinearLayout>
+</LinearLayout>
