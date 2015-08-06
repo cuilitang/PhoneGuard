@@ -91,17 +91,13 @@ public class AntivirusActivity extends Activity {
 		
 		packageManager = getPackageManager();
 		tv_scan_status.setText("正在启动杀毒引擎");
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		new Thread(){
 			public void run() {
 				
 				List<PackageInfo> packages = packageManager.getInstalledPackages(0);
+				
+				try {Thread.sleep(500);} catch (InterruptedException e) {e.printStackTrace();}  //让用户能看见正在启动杀毒引擎的字样，然而并没什么卵用
 				
 				progressBar.setMax(packages.size());
 				int progress = 0;
