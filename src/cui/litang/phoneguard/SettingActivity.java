@@ -100,15 +100,19 @@ public class SettingActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				
+				Editor editor = sp.edit();
 				
 				if(clt_tel_area.isChecked()){
 					clt_tel_area.setCheck(false);
 					stopService(areaIntent);
+					editor.putBoolean(MyApplication.ISSHOWTELAREA, false);
 					
 				}else {
 					clt_tel_area.setCheck(true);
 					startService(areaIntent);
+					editor.putBoolean(MyApplication.ISSHOWTELAREA, true);
 				}
+				editor.commit();
 				
 			}
 		});
@@ -171,16 +175,19 @@ public class SettingActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				
-				
+				Editor editor = sp.edit();
 				if(clt_black_list.isChecked()){
+					
 					clt_black_list.setCheck(false);
 					stopService(blackListIntent);
-					
+					editor.putBoolean(MyApplication.ISEXEBLACKLIST, false);
 				}else {
+					
 					clt_black_list.setCheck(true);
 					startService(blackListIntent);
+					editor.putBoolean(MyApplication.ISEXEBLACKLIST, true);
 				}
-				
+				editor.commit();
 			}
 		});
 		
@@ -205,15 +212,17 @@ public class SettingActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				
-				
+				Editor editor = sp.edit();
 				if(clt_app_lock.isChecked()){
 					clt_app_lock.setCheck(false);
 					stopService(appLockIntent);
-					
+					editor.putBoolean(MyApplication.ISEXEAPPLOCK, false);
 				}else {
 					clt_app_lock.setCheck(true);
 					startService(appLockIntent);
+					editor.putBoolean(MyApplication.ISEXEAPPLOCK, true);
 				}
+				editor.commit();
 				
 			}
 		});

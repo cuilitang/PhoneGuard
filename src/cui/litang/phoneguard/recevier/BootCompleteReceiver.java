@@ -1,15 +1,22 @@
 package cui.litang.phoneguard.recevier;
 
+import cui.litang.phoneguard.MyApplication;
+import cui.litang.phoneguard.service.AppLockService;
+import cui.litang.phoneguard.service.BlackNumberService;
+import cui.litang.phoneguard.service.TelAreaService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.sax.StartElementListener;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.Toast;
 
 public class BootCompleteReceiver extends  BroadcastReceiver{
 
+	private static final String TAG = "BootCompleteReceiver";
 	private SharedPreferences sp;
 	private TelephonyManager tm;
 
@@ -17,11 +24,30 @@ public class BootCompleteReceiver extends  BroadcastReceiver{
 	public void onReceive(Context context, Intent intent) {
 		
 		Toast.makeText(context, "手机启动完成", Toast.LENGTH_SHORT).show();
-		
-		
 		sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
-		boolean isOn = sp.getBoolean("start", false);
 		
+		//启动程序锁服务
+		if(sp.getBoolean(MyApplication.ISEXEAPPLOCK, false)){
+			context.startService(new Intent(context,AppLockService.class));
+			Log.i(TAG, "启动黑名单服务");
+			Toast.makeText(context, "启动黑名单服务", Toast.LENGTH_SHORT).show();
+		}
+		
+		//启动黑名单服务
+		if(sp.getBoolean(MyApplication.ISEXEBLACKLIST, false)){
+			context.startService(new Intent(context,BlackNumberService.class));
+			Log.i(TAG, "启动程序锁服务");
+			Toast.makeText(context, "启动程序锁服务", Toast.LENGTH_SHORT).show();
+		}
+		
+		//启动号码归属地吐司服务
+		if(sp.getBoolean(MyApplication.ISEXEAPPLOCK, false)){
+			context.startService(new Intent(context,TelAreaService.class));
+			Log.i(TAG, "启动号码归属地吐司服务");
+			Toast.makeText(context, "启动号码归属地吐司服务", Toast.LENGTH_SHORT).show();
+		}
+		//手机防盗服务是否开启
+		boolean isOn = sp.getBoolean("start", false);
 		if(isOn){
 			Toast.makeText(context, "手机防盗服务打开", Toast.LENGTH_SHORT).show();
 			

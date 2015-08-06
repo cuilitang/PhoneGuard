@@ -13,6 +13,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
 
+/**
+ * 程序锁
+ * 省电优化：监听锁屏事件，锁屏后直接将程序锁服务关掉，等屏幕开启时候再将程序锁服务启动起来。
+ * 这样，用户的设置状态就需要在sharedperformence中存储一下，使用广播接收器开启.与开机启动服务相同。
+ * 若是服务被异常终止，也可以在服务中发个广播重启服务，当前需要先读取shareperformence的配置文件判断一下，是不是用户操作。
+ * @author Cuilitang
+ * @Date 2015年8月6日
+ */
 public class AppLockService extends Service {
 
 	private ScreenOffReceiver offReceiver;

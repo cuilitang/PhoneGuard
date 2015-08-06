@@ -30,13 +30,13 @@ public class HomeActivity extends Activity {
 	private MyAdapter adapter;
 	private static String [] names = {
 		"手机防盗","通讯卫士","应用管理",
-		"进程管理","流量统计","手机杀毒",
+		"进程管理","常用号码","手机杀毒",
 		"缓存清理","高级工具","设置中心"
 		
 	};
 	private static int[] ids = {
 		R.drawable.safe,R.drawable.callmsgsafe,R.drawable.app,
-		R.drawable.taskmanager,R.drawable.netmanager,R.drawable.trojan,
+		R.drawable.taskmanager,R.drawable.phone_number,R.drawable.trojan,
 		R.drawable.sysoptimize,R.drawable.atools,R.drawable.settings
 		
 	};
@@ -88,8 +88,8 @@ public class HomeActivity extends Activity {
 					intent = new Intent(HomeActivity.this,TaskManagerActivity.class);
 					startActivity(intent);
 					break;
-				case 4://流量统计
-					intent = new Intent(HomeActivity.this,FlowmeterActivity.class);
+				case 4://常用号码
+					intent = new Intent(HomeActivity.this,TelNumberActivity.class);
 					startActivity(intent);
 					break;
 				case 5://手机杀毒

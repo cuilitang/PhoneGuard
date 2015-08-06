@@ -151,6 +151,7 @@
         <activity android:name="cui.litang.phoneguard.TaskSettingActivity"></activity>
         <activity android:name="cui.litang.phoneguard.AntivirusActivity" android:configChanges="orientation|screenSize|keyboardHidden"></activity>
         <activity android:name="cui.litang.phoneguard.CacheCleanActivity"></activity>
+        <activity android:name="cui.litang.phoneguard.TelNumberActivity"></activity>
     </application>
 
 </manifest>

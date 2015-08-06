@@ -15,7 +15,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import cui.litang.phoneguard.engine.TrafficInfoProvider;
 import cui.litang.phoneguard.entity.TrafficInfo;
-
+/**
+ * 流量统计
+ * 开机一次，清零一次，若想精准和监控实时变化就得后台开服务，实时请求数据。
+ * @author Cuilitang
+ * @Date 2015年8月6日
+ */
 public class FlowmeterActivity extends Activity {
 	//展示数据列表
 	private ListView lv;
