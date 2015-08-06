@@ -32,6 +32,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 /**
@@ -102,7 +103,7 @@ public class CacheCleanActivity extends Activity {
 					
 					try {
 						getPackageSizeInfoMethod.invoke(manager, packageInfo.packageName,new MyPackageStatsObserver());
-						Thread.sleep(150);
+						Thread.sleep(100);
 					} catch (Exception e) {
 						//  Auto-generated catch block
 						e.printStackTrace();
@@ -256,8 +257,9 @@ public class CacheCleanActivity extends Activity {
 		}
 		FrameLayout frameLayout = (android.widget.FrameLayout) findViewById(R.id.fl_content);
 		LinearLayout ll_clear_all_container = (LinearLayout) findViewById(R.id.ll_clear_all_container);
+		ScrollView sl_container =  (ScrollView)findViewById(R.id.sl_container);
 		
-		frameLayout.removeView(ll_container);
+		frameLayout.removeView(sl_container);
 		ll_clear_all_container.setVisibility(View.VISIBLE);
 	}
 	

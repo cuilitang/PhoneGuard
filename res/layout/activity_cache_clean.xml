@@ -39,7 +39,6 @@
         android:layout_weight="1000"
         >
 	    <LinearLayout
-	        android:layout_weight="1000"
 	        android:id="@+id/ll_clear_all_container"
 	        android:visibility="invisible"
 	        android:layout_width="fill_parent"
@@ -55,15 +54,18 @@
 	            android:layout_height="match_parent"
 	            />
 	    </LinearLayout>
-	    
-	     <LinearLayout
-	        android:layout_weight="1000"
-	        android:id="@+id/ll_container"
+	    <ScrollView 
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
-	        android:orientation="vertical" >
-	       
-	    </LinearLayout>
+	        android:id="@+id/sl_container"
+	         >
+		     <LinearLayout
+		          android:id="@+id/ll_container"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="vertical" >
+		    </LinearLayout>
+	    </ScrollView>
     </FrameLayout>
 
     <Button
