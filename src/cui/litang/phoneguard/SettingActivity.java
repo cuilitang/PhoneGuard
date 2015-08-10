@@ -104,15 +104,16 @@ public class SettingActivity extends Activity{
 				
 				if(clt_tel_area.isChecked()){
 					clt_tel_area.setCheck(false);
-					stopService(areaIntent);
 					editor.putBoolean(MyApplication.ISSHOWTELAREA, false);
-					
+					editor.commit();
+					stopService(areaIntent);
 				}else {
 					clt_tel_area.setCheck(true);
 					startService(areaIntent);
 					editor.putBoolean(MyApplication.ISSHOWTELAREA, true);
+					editor.commit();
 				}
-				editor.commit();
+				
 				
 			}
 		});
@@ -179,15 +180,18 @@ public class SettingActivity extends Activity{
 				if(clt_black_list.isChecked()){
 					
 					clt_black_list.setCheck(false);
-					stopService(blackListIntent);
+					
 					editor.putBoolean(MyApplication.ISEXEBLACKLIST, false);
+					stopService(blackListIntent);
+					editor.commit();
 				}else {
 					
 					clt_black_list.setCheck(true);
 					startService(blackListIntent);
 					editor.putBoolean(MyApplication.ISEXEBLACKLIST, true);
+					editor.commit();
 				}
-				editor.commit();
+				
 			}
 		});
 		
@@ -215,14 +219,17 @@ public class SettingActivity extends Activity{
 				Editor editor = sp.edit();
 				if(clt_app_lock.isChecked()){
 					clt_app_lock.setCheck(false);
-					stopService(appLockIntent);
+					
 					editor.putBoolean(MyApplication.ISEXEAPPLOCK, false);
+					editor.commit();
+					stopService(appLockIntent);
 				}else {
 					clt_app_lock.setCheck(true);
 					startService(appLockIntent);
 					editor.putBoolean(MyApplication.ISEXEAPPLOCK, true);
+					editor.commit();
 				}
-				editor.commit();
+				
 				
 			}
 		});

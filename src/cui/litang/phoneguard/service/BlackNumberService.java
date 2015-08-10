@@ -10,6 +10,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.SmsMessage;
 import android.util.Log;
+import cui.litang.phoneguard.MyApplication;
 import cui.litang.phoneguard.db.dao.BlackNumberDAO;
 
 /**
@@ -32,6 +34,7 @@ public class BlackNumberService extends Service {
 	private MyListener listener;
 	private InnerSMSRecevier receiver;
 	private static final String TAG = "BlackNumberService";
+	private SharedPreferences sp;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -63,6 +66,16 @@ public class BlackNumberService extends Service {
 		
 		unregisterReceiver(receiver);
 		receiver = null;
+		
+		//判断是正常停止还是异常停止。
+		Log.i(TAG, "黑名单服务停止了！！！");
+		sp = getSharedPreferences("config", MODE_PRIVATE);
+		boolean isUser = sp.getBoolean(MyApplication.ISEXEBLACKLIST, false);
+		if(isUser){
+			Log.i(TAG, "黑名单服务被异常停止了！！！应该重新启动起来！！！");
+			Intent intent = new Intent(getApplicationContext(),BlackNumberService.class);
+			startService(intent);
+		}
 	}
 	
 	private class InnerSMSRecevier extends BroadcastReceiver{

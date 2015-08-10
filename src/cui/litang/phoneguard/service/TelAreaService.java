@@ -1,5 +1,6 @@
 package cui.litang.phoneguard.service;
 
+import cui.litang.phoneguard.MyApplication;
 import cui.litang.phoneguard.R;
 import cui.litang.phoneguard.db.TelAreaQueryUtils;
 import android.app.Service;
@@ -74,6 +75,16 @@ public class TelAreaService extends Service {
 		
 		unregisterReceiver(mReceiver);
 		mReceiver = null;
+		
+		//判断是正常停止还是异常停止。
+		Log.i(TAG, "来电归属地服务停止了！！！");
+		sp = getSharedPreferences("config", MODE_PRIVATE);
+		boolean is_show_tel_area = sp.getBoolean(MyApplication.ISSHOWTELAREA, false);
+		if(is_show_tel_area){
+			Log.i(TAG, "来电归属地服务被异常停止了！！！应该重新启动起来！！！");
+			Intent areaIntent = new Intent(getApplicationContext(),TelAreaService.class);
+			startService(areaIntent);
+		}
 	}
 	
 	/**
